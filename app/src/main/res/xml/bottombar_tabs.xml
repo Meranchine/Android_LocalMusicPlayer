@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <tab
+        id="@+id/tab_musiclist"
+        icon="@drawable/ic_musiclist"
+        title="MusicList" />
+    <tab
+        id="@+id/tab_music"
+        icon="@drawable/ic_music"
+        title="MusicPlayer" />
+
+
+
+</PreferenceScreen>

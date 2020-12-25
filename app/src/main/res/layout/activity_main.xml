@@ -1,84 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<Toolbar xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@mipmap/backg">
 
-    <RelativeLayout
-        android:id="@+id/local_music_bottom_layout"
+    <com.roughike.bottombar.BottomBar
+        android:id="@+id/bottomBar"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="#fbf6f0">
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="#ec524b" />
-
-        <ImageView
-            android:id="@+id/local_music_bottom_iv_icon"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:src="@mipmap/musicicon" />
-        <TextView
-            android:id="@+id/local_music_bottom_tv_song"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="殉情"
-            android:textSize="16sp"
-            android:layout_toRightOf="@id/local_music_bottom_iv_icon"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"/>
-        <TextView
-            android:id="@+id/local_music_bottom_tv_singer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="夏之禹"
-            android:textSize="13sp"
-            android:layout_below="@id/local_music_bottom_tv_song"
-            android:layout_alignLeft="@id/local_music_bottom_tv_song"
-            android:layout_marginTop="10dp"/>
-
-        <ImageView
-            android:id="@+id/local_music_bottom_iv_next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/next"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="10dp"/>
-
-        <ImageView
-            android:id="@+id/local_music_bottom_iv_play"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/play"
-            android:layout_toLeftOf="@id/local_music_bottom_iv_next"
-            android:layout_marginRight="10dp"/>
-
-        <ImageView
-            android:id="@+id/local_music_bottom_iv_prev"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:src="@mipmap/prev"
-            android:layout_toLeftOf="@id/local_music_bottom_iv_play"
-            android:layout_marginRight="10dp"/>
-
-    </RelativeLayout>
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/local_music_rv"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/local_music_bottom_layout"/>
+        app:bb_tabXmlResource="@xml/bottombar_tabs" />
 
 
-</RelativeLayout>
+</Toolbar>
