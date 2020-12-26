@@ -1,5 +1,6 @@
 package com.example.localmusic.ui.activity
 
+import android.media.MediaPlayer
 import com.example.localmusic.R
 import com.example.localmusic.base.BaseActivity
 import com.example.localmusic.model.AudioBean
@@ -13,6 +14,15 @@ class AudioPlayerActivity: BaseActivity() {
         val list = intent.getParcelableArrayListExtra<AudioBean>("list")
         val position = intent.getIntExtra("position",-1)
         //播放音乐
-        
+        val mediaPlayer =MediaPlayer()
+        mediaPlayer.setOnPreparedListener(){
+            //开始播放
+            mediaPlayer.start()
+        }
+        if (list != null) {
+            mediaPlayer.setDataSource(list.get(position).data)
+        }
+        mediaPlayer.prepareAsync()
+
     }
 }
