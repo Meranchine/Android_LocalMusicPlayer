@@ -1,12 +1,40 @@
 package com.example.localmusic.model
 
-
 import android.database.Cursor
+import android.os.Parcel
+import android.os.Parcelable
 import android.provider.MediaStore
 
 //音乐列表条目bean
-data class AudioBean(var data:String, var size:Long, var display_name:String, var artist:String) {
-    companion object {
+data class AudioBean(var data:String, var size:Long, var display_name:String, var artist:String):Parcelable {
+    constructor(parcel: Parcel) : this(
+        parcel.readString()!!,
+        parcel.readLong(),
+        parcel.readString()!!,
+        parcel.readString()!!
+    ) {
+
+    }
+
+    override fun writeToParcel(parcel: Parcel, flags: Int) {
+        parcel.writeString(data)
+        parcel.writeLong(size)
+        parcel.writeString(display_name)
+        parcel.writeString(artist)
+    }
+
+    override fun describeContents(): Int {
+        return 0
+    }
+
+    companion object CREATOR : Parcelable.Creator<AudioBean> {
+        override fun createFromParcel(parcel: Parcel): AudioBean {
+            return AudioBean(parcel)
+        }
+
+        override fun newArray(size: Int): Array<AudioBean?> {
+            return arrayOfNulls(size)
+        }
 
         //根据特定位置上的cursor获取bean
         fun getAudioBean(cursor: Cursor):AudioBean {
@@ -22,6 +50,23 @@ data class AudioBean(var data:String, var size:Long, var display_name:String, va
                 audioBean.artist = cursor.getString(cursor.getColumnIndex(MediaStore.Audio.Media.ARTIST))
             }
             return audioBean
+        }
+
+        //根据特定位置cursor获取整个播放列表
+        fun getAudioBeans(cursor: Cursor?): ArrayList<AudioBean> {
+            //创建集合
+            val list = java.util.ArrayList<AudioBean>()
+            //cursor是否为空
+            cursor.let {
+                //将cursor游标移动到-1
+                it?.moveToPosition(-1)
+                //解析cursor添加到集合中
+                while (it!!.moveToNext()){
+                    val audioBean = getAudioBean(it)
+                    list.add(audioBean)
+                }
+            }
+            return list
         }
     }
 

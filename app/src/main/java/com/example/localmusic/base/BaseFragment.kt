@@ -13,7 +13,6 @@ import org.jetbrains.anko.support.v4.toast
 //所有fragment的基类
 
 abstract class BaseFragment: Fragment(), AnkoLogger{
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         init()

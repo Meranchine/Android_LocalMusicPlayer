@@ -11,6 +11,6 @@ interface ToolBarManager {
     //初始化主界面中的toolbar
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     fun initMainToolBar() {
-        toolbar.setTitle("LocalPlayer")
+        toolbar.setTitle("MyPlayer")
     }
 }

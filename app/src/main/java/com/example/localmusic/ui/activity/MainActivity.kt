@@ -1,6 +1,5 @@
 package com.example.localmusic.ui.activity
 
-
 import android.os.Build
 import android.widget.Toolbar
 import androidx.annotation.RequiresApi
@@ -11,21 +10,17 @@ import com.example.localmusic.util.ToolBarManager
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.find
 
-
-
-class MainActivity : BaseActivity() ,ToolBarManager{
+class MainActivity : BaseActivity(), ToolBarManager{
+    //惰性加载，只有用时加载
     override val toolbar by lazy { find<Toolbar>(R.id.toolbar) }
-
     override fun getLayoutId(): Int {
         return R.layout.activity_main
     }
-
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun initData() {
         initMainToolBar()
     }
-
 
     override fun initListener() {
         //设置tab切换监听
@@ -40,5 +35,4 @@ class MainActivity : BaseActivity() ,ToolBarManager{
             transaction.commit()
         }
     }
-
 }

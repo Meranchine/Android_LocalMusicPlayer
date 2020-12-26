@@ -1,30 +1,24 @@
 package com.example.localmusic.ui.fragment
 
-
-
-import android.Manifest
-import android.app.Activity
 import android.content.AsyncQueryHandler
-import android.content.ContentResolver
 import android.content.pm.PackageManager
 import android.database.Cursor
-import android.os.AsyncTask
-import android.os.Parcel
-import android.os.Parcelable
 import android.provider.MediaStore
 import android.view.View
-import android.widget.ListView
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
-import androidx.recyclerview.widget.RecyclerView
 import com.example.localmusic.R
 import com.example.localmusic.adapter.MusicAdapter
 import com.example.localmusic.base.BaseFragment
+import com.example.localmusic.model.AudioBean
+import com.example.localmusic.ui.activity.AudioPlayerActivity
 import com.example.localmusic.util.CursorUtil
-
 import kotlinx.android.synthetic.main.fragment_music.*
+import org.jetbrains.anko.noButton
+import org.jetbrains.anko.support.v4.alert
+import org.jetbrains.anko.support.v4.startActivity
+import org.jetbrains.anko.yesButton
 
-class MusicFragment() : BaseFragment(), Parcelable {
+class MusicFragment : BaseFragment() {
     //    val handler = object :Handler() {
 //        override fun handleMessage(msg: Message) {
 //            msg.let {
@@ -54,7 +48,52 @@ class MusicFragment() : BaseFragment(), Parcelable {
 //    }
 
     override fun initData() {
+       //loadSongs()
+        //动态权限申明
+        handlePermission()
+    }
 
+    //处理动态权限
+    private fun handlePermission() {
+        val permission = android.Manifest.permission.READ_EXTERNAL_STORAGE
+        //查看是否有权限
+        val checkSelfPermission = context?.let { ActivityCompat.checkSelfPermission(it, permission) }
+        if (checkSelfPermission == PackageManager.PERMISSION_GRANTED) {
+            //已经获取
+            loadSongs()
+        }else {
+            //没有获取
+            if (ActivityCompat.shouldShowRequestPermissionRationale(activity!!, permission)) {
+                //需要弹出
+                alert ("我们只会访问音乐文件，不会访问隐私照片", "温馨提示") {
+                    yesButton { myRequestPermission() }
+                    noButton {  }
+                }.show()
+            }else {
+                //不需要弹出
+                myRequestPermission()
+            }
+        }
+    }
+
+    //真正申请权限
+    private fun myRequestPermission() {
+        val permissions = arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE)
+        requestPermissions(permissions, 1)
+    }
+
+    //接收权限授权结果
+    //requestcode请求码
+    //permissions权限申请数组
+    //grantResults申请之后的结果
+    override fun onRequestPermissionsResult(requestCode: Int,permissions: Array<out String>,grantResults: IntArray) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            loadSongs()
+        }
+    }
+
+    private fun loadSongs() {
         //加载音乐列表数据
         val resolver = context?.contentResolver
 //        val cursor = resolver?.query(MediaStore.Audio.Media.EXTERNAL_CONTENT_URI,
@@ -113,16 +152,20 @@ class MusicFragment() : BaseFragment(), Parcelable {
             null, null, null
         )
     }
-
     var adapter: MusicAdapter? = null
-
-    constructor(parcel: Parcel) : this() {
-
-    }
-
     override fun initListener() {
         adapter = MusicAdapter(context, null)
-//        listView.adapter = adapter
+        listView.adapter = adapter
+        //设置条目点击事件
+        listView.setOnItemClickListener { adapterView, view, i, _ ->
+            //获取数据集合
+            val cursor = adapter?.getItem(i) as Cursor
+            //通过当前位置cursor获取整个播放列表
+            val list:ArrayList<AudioBean> = AudioBean.getAudioBeans(cursor)
+            //位置position
+            //跳转到音乐播放界面
+            startActivity<AudioPlayerActivity>("list" to list, "position" to i)
+        }
     }
 
     //音乐查询异步任务
@@ -150,21 +193,12 @@ class MusicFragment() : BaseFragment(), Parcelable {
 //        }
 //
 //    }
-    override fun writeToParcel(parcel: Parcel, flags: Int) {
 
-    }
-
-    override fun describeContents(): Int {
-        return 0
-    }
-
-    companion object CREATOR : Parcelable.Creator<MusicFragment> {
-        override fun createFromParcel(parcel: Parcel): MusicFragment {
-            return MusicFragment(parcel)
-        }
-
-        override fun newArray(size: Int): Array<MusicFragment?> {
-            return arrayOfNulls(size)
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        //界面销毁 关闭cursor
+        //获取adapter中的cursor 关闭
+        //将adapter中的cursor设置为null
+        adapter?.changeCursor(null)
     }
 }

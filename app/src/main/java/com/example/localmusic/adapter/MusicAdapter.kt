@@ -8,7 +8,6 @@ import android.widget.CursorAdapter
 import com.example.localmusic.model.AudioBean
 import com.example.localmusic.widget.MusicItemView
 
-
 //music界面列表适配器
 class MusicAdapter(context: Context?, c: Cursor?) : CursorAdapter(context, c) {
     //创建条目view
@@ -21,7 +20,7 @@ class MusicAdapter(context: Context?, c: Cursor?) : CursorAdapter(context, c) {
         //view
         val itemView = view as MusicItemView
         //data
-        val itemBean=cursor?.let { AudioBean.getAudioBean(it) }
+        val itemBean = cursor?.let { AudioBean.getAudioBean(it) }
         //view+data
         if (itemBean != null) {
             itemView.setData(itemBean)
