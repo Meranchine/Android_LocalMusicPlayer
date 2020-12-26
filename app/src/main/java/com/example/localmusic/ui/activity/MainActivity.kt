@@ -2,8 +2,6 @@ package com.example.localmusic.ui.activity
 
 
 import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
 import android.widget.Toolbar
 import androidx.annotation.RequiresApi
 import com.example.localmusic.R
@@ -12,7 +10,7 @@ import com.example.localmusic.util.FragmentUtil
 import com.example.localmusic.util.ToolBarManager
 import kotlinx.android.synthetic.main.activity_main.*
 import org.jetbrains.anko.find
-import java.nio.file.Files.find
+
 
 
 class MainActivity : BaseActivity() ,ToolBarManager{

@@ -1,14 +1,16 @@
 package com.example.localmusic.base
 
 
+
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.os.PersistableBundle
 import androidx.appcompat.app.AppCompatActivity
-import com.example.localmusic.ui.activity.MainActivity
+import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.debug
 import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
+
 
 //所有activity的基类
 abstract class BaseActivity:AppCompatActivity(), AnkoLogger{
@@ -17,6 +19,10 @@ abstract class BaseActivity:AppCompatActivity(), AnkoLogger{
         setContentView(getLayoutId())
         initListener()
         initData()
+        if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+        ) { ActivityCompat.requestPermissions(this, arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE), 0)
+        }
+
     }
 
     //初始化数据

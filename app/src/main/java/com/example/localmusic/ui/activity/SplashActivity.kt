@@ -6,7 +6,6 @@ import androidx.core.view.ViewPropertyAnimatorListener
 import com.example.localmusic.R
 import com.example.localmusic.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_splash.*
-import org.jetbrains.anko.startActivity
 
 class SplashActivity:BaseActivity(), ViewPropertyAnimatorListener {
 

@@ -1,6 +1,5 @@
 package com.example.localmusic.base
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +19,15 @@ abstract class BaseFragment: Fragment(), AnkoLogger{
         init()
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
     //fragment初始化
-    protected fun init() {
+    open protected fun init() {
 
     }
 

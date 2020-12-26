@@ -2,12 +2,11 @@ package com.example.localmusic.ui.fragment
 
 import android.view.Gravity
 import android.view.View
-import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.localmusic.R
 import com.example.localmusic.adapter.MusicListAdapter
 import com.example.localmusic.base.BaseFragment
-import kotlinx.android.synthetic.main.fragment_music.*
+import kotlinx.android.synthetic.main.fragment_musiclist.*
 
 class MusicListFragment:BaseFragment() {
 
