@@ -10,8 +10,8 @@ import com.example.localmusic.R
 import com.example.localmusic.adapter.MusicAdapter
 import com.example.localmusic.base.BaseFragment
 import com.example.localmusic.model.AudioBean
-import com.example.localmusic.ui.activity.AudioPlayerActivity
 import com.example.localmusic.util.CursorUtil
+import com.example.localmusic.ui.activity.AudioPlayerActivity
 import kotlinx.android.synthetic.main.fragment_music.*
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.support.v4.alert
@@ -48,7 +48,7 @@ class MusicFragment : BaseFragment() {
 //    }
 
     override fun initData() {
-       //loadSongs()
+        //loadSongs()
         //动态权限申明
         handlePermission()
     }
@@ -63,7 +63,7 @@ class MusicFragment : BaseFragment() {
             loadSongs()
         }else {
             //没有获取
-            if (ActivityCompat.shouldShowRequestPermissionRationale(activity!!, permission)) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permission)) {
                 //需要弹出
                 alert ("我们只会访问音乐文件，不会访问隐私照片", "温馨提示") {
                     yesButton { myRequestPermission() }
