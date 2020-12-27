@@ -11,7 +11,8 @@ import com.example.localmusic.adapter.MusicAdapter
 import com.example.localmusic.base.BaseFragment
 import com.example.localmusic.model.AudioBean
 import com.example.localmusic.util.CursorUtil
-import com.example.localmusic.ui.activity.AudioPlayerActivity
+import com.example.localmusic
+.ui.activity.AudioPlayerActivity
 import kotlinx.android.synthetic.main.fragment_music.*
 import org.jetbrains.anko.noButton
 import org.jetbrains.anko.support.v4.alert

@@ -9,7 +9,7 @@ import java.io.File
  */
 object LyricLoader {
     //歌词文件夹
-    val dir = File(Environment.getExternalStorageDirectory(),"Download/Lyric")
+    val dir = File(Environment.getExternalStorageDirectory(),"Download")
     /**
      * 根据歌曲名称加载歌词文件
      */
