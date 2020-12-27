@@ -16,6 +16,7 @@ class PlayListPopWindow(context: Context, adapter: BaseAdapter, listener: Adapte
     var alpha: Float = 0f
 
     init {
+
         //记录当前窗体的透明度
         alpha = window.attributes.alpha
         //设置布局

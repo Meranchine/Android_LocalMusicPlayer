@@ -1,9 +1,6 @@
 package com.example.localmusic.service
 
-import android.app.Notification
-import android.app.NotificationManager
-import android.app.PendingIntent
-import android.app.Service
+import android.app.*
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
@@ -17,6 +14,7 @@ import com.example.localmusic.model.AudioBean
 import com.example.localmusic.ui.activity.MainActivity
 import com.example.localmusic.ui.activity.AudioPlayerActivity
 import de.greenrobot.event.EventBus
+import org.jetbrains.anko.notificationManager
 import java.util.*
 
 class AudioService: Service(){
@@ -25,6 +23,10 @@ class AudioService: Service(){
     var manager: NotificationManager? = null
     var notification: Notification? = null
     var position: Int = -2  // 正在播放的position
+
+    val Channel_ID = "my channel"
+    val Notification_ID = 1
+
 
     val FROM_PRE= 1
     val FROM_NEXT= 2
@@ -265,15 +267,23 @@ class AudioService: Service(){
          */
         private fun getNotification(): Notification? {
             val bitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
-            val notification = NotificationCompat.Builder(this@AudioService)
-                .setTicker("正在播放歌曲${list?.get(position)?.display_name}")
-                .setSmallIcon(R.mipmap.ic_launcher)
-                .setCustomContentView(getRemoteViews())
-                .setWhen(System.currentTimeMillis())
-                .setOngoing(true)//设置不能滑动删除通知
-                .setContentIntent(getPendingIntent())//通知栏主体点击事件
-                .build()
-            return notification
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                val notificationChannel = NotificationChannel(Channel_ID,"test",NotificationManager.IMPORTANCE_DEFAULT)
+                notificationManager.createNotificationChannel(notificationChannel)
+                val notification = NotificationCompat.Builder(this@AudioService,Channel_ID)
+                    .setTicker("正在播放歌曲${list?.get(position)?.display_name}")
+                    .setSmallIcon(R.mipmap.ic_launcher)
+                    .setCustomContentView(getRemoteViews())
+                    .setWhen(System.currentTimeMillis())
+                    .setOngoing(true)//设置不能滑动删除通知
+                    .setContentIntent(getPendingIntent())//通知栏主体点击事件
+                    .build()
+                return notification
+            } else {
+                val notification = NotificationCompat.Builder(this@AudioService)
+                return notification as Notification
+            }
+
         }
         /**
          * 创建通知自定义view

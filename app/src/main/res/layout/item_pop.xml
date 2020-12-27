@@ -10,7 +10,7 @@
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="哈哈"
+        android:text="hi"
         android:textColor="#000"
         android:textSize="25sp"/>
 
@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
-        android:text="呵呵"
+        android:text="meranchine"
         android:textColor="#40000000"
         android:textSize="20sp"/>
 </LinearLayout>
